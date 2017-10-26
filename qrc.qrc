@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>FlatUiSrcImage/bluearrow.png</file>
+        <file>FlatUiSrcImage/checkbox_down.png</file>
+        <file>FlatUiSrcImage/checkbox_hoverCheck.png</file>
+        <file>FlatUiSrcImage/checkbox_hoverUncheck.png</file>
+        <file>FlatUiSrcImage/checkbox_normal.png</file>
+        <file>FlatUiSrcImage/close.png</file>
+        <file>FlatUiSrcImage/closehover.png</file>
+        <file>FlatUiSrcImage/closepress.png</file>
+        <file>FlatUiSrcImage/maxsize.png</file>
+        <file>FlatUiSrcImage/maxsizehover.png</file>
+        <file>FlatUiSrcImage/maxsizepress.png</file>
+        <file>FlatUiSrcImage/minsize.png</file>
+        <file>FlatUiSrcImage/minsizehover.png</file>
+        <file>FlatUiSrcImage/minsizepress.png</file>
+        <file>FlatUiSrcImage/radio_down.png</file>
+        <file>FlatUiSrcImage/radio_hoverCheck.png</file>
+        <file>FlatUiSrcImage/radio_hoverUncheck.png</file>
+        <file>FlatUiSrcImage/radio_normal.png</file>
+        <file>FlatUiSrcImage/resize.png</file>
+        <file>FlatUiSrcImage/resizehover.png</file>
+        <file>FlatUiSrcImage/resizepress.png</file>
+        <file>FlatUiSrcImage/myicon.ico</file>
+    </qresource>
+</RCC>
