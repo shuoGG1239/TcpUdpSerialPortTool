@@ -1,6 +1,6 @@
 #include "tcpudpcomtool.h"
-#include "titlebar.h"
-#include "qssstyleshuoggdef.h"
+#include "./flatui/titlebar.h"
+#include "./flatui/qssstyleshuoggdef.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

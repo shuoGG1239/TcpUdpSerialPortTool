@@ -21,8 +21,8 @@
 ------------------------------------------------------------------------------------------*/
 #include <QObject>
 #include <QTcpSocket>
-#include "dataoperate.h"
-#include "icommunicatetcpip.h"
+#include "../stringutils/dataoperate.h"
+#include "../icomm/icommunicatetcpip.h"
 
 class TcpSocketClient : public QObject, public ICommunicateTCPIP
 {

@@ -17,30 +17,30 @@ CONFIG += c++11
 
 SOURCES += main.cpp\
         tcpudpcomtool.cpp\
-    dataoperate.cpp \
+    stringutils\dataoperate.cpp \
     dialoghelpshortcut.cpp \
-    qsssetting.cpp \
-    titlebar.cpp \
-    qssstyleshuoggdef.cpp \
+    flatui\qsssetting.cpp \
+    flatui\titlebar.cpp \
+    flatui\qssstyleshuoggdef.cpp \
     configfileshuogg.cpp \
-    serialport.cpp \
-    udpsocket.cpp \
-    tcpsocketclient.cpp \
-    tcpserver.cpp
+    serialport\serialport.cpp \
+    udp\udpsocket.cpp \
+    tcp\tcpsocketclient.cpp \
+    tcp\tcpserver.cpp
 
 HEADERS  += tcpudpcomtool.h\
-    dataoperate.h \
+    stringutils\dataoperate.h \
     dialoghelpshortcut.h \
-    icommunicate.h \
-    qsssetting.h \
-    titlebar.h \
-    qssstyleshuoggdef.h \
+    icomm\icommunicate.h \
+    flatui\qsssetting.h \
+    flatui\titlebar.h \
+    flatui\qssstyleshuoggdef.h \
     configfileshuogg.h \
-    serialport.h \
-    icommunicatetcpip.h \
-    udpsocket.h \
-    tcpsocketclient.h \
-    tcpserver.h
+    serialport\serialport.h \
+    icomm\icommunicatetcpip.h \
+    udp\udpsocket.h \
+    tcp\tcpsocketclient.h \
+    tcp\tcpserver.h
 
 FORMS    += tcpudpcomtool.ui\
     dialoghelpshortcut.ui

@@ -19,7 +19,7 @@
 ------------------------------------------------------------------------------------------*/
 #include <QObject>
 #include <QUdpSocket>
-#include "icommunicatetcpip.h"
+#include "../icomm/icommunicatetcpip.h"
 
 class UdpSocket : public QObject, public ICommunicateTCPIP
 {

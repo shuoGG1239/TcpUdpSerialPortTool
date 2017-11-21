@@ -19,7 +19,7 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <QStringList>
-#include "icommunicate.h"
+#include "../icomm/icommunicate.h"
 
 namespace SerialPortBlock {
     class Init;

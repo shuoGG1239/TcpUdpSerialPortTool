@@ -14,7 +14,7 @@
 #include <qt_windows.h>
 #endif
 const QString TitleBar::titletextcolor        ="white";
-const QString TitleBar::imageroot             =":/image/FlatUiSrcImage/";
+const QString TitleBar::imageroot             =":/image/flatui/FlatUiSrcImage/";
 const QString TitleBar::imageclosenorm        ="close.png";
 const QString TitleBar::imageclosehover       ="closehover.png";
 const QString TitleBar::imageclosepress       ="closepress.png";

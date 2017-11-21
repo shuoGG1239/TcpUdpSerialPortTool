@@ -13,10 +13,10 @@
 #include <QTimer>
 #include "dialoghelpshortcut.h"
 #include "configfileshuogg.h"
-#include "serialport.h"
-#include "udpsocket.h"
-#include "tcpsocketclient.h"
-#include "tcpserver.h"
+#include "./serialport/serialport.h"
+#include "./udp/udpsocket.h"
+#include "./tcp/tcpsocketclient.h"
+#include "./tcp/tcpserver.h"
 #include "ui_tcpudpcomtool.h"
 
 #define WIN_WIDTH  655
