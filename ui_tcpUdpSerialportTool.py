@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_tcpUdpSerialportTool.ui'
 #
-# Created: Tue Nov 21 19:37:44 2017
+# Created: Tue Dec  5 19:50:18 2017
 #      by: PyQt5 UI code generator 5.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -90,6 +90,10 @@ class Ui_TcpUdpComTool(object):
         self.comboBoxBaud = QtWidgets.QComboBox(TcpUdpComTool)
         self.comboBoxBaud.setGeometry(QtCore.QRect(572, 123, 69, 22))
         self.comboBoxBaud.setObjectName("comboBoxBaud")
+        self.toolButtonAOP = QtWidgets.QToolButton(TcpUdpComTool)
+        self.toolButtonAOP.setGeometry(QtCore.QRect(390, 453, 71, 31))
+        self.toolButtonAOP.setAutoRaise(True)
+        self.toolButtonAOP.setObjectName("toolButtonAOP")
 
         self.retranslateUi(TcpUdpComTool)
         QtCore.QMetaObject.connectSlotsByName(TcpUdpComTool)
@@ -109,4 +113,5 @@ class Ui_TcpUdpComTool(object):
         self.groupBoxAim.setTitle(_translate("TcpUdpComTool", "目的"))
         self.toolButtonShortCut.setText(_translate("TcpUdpComTool", "快捷键"))
         self.pushButtonClearRec.setText(_translate("TcpUdpComTool", "清空接收框"))
+        self.toolButtonAOP.setText(_translate("TcpUdpComTool", "AOP"))
 

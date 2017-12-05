@@ -303,6 +303,22 @@
     </rect>
    </property>
   </widget>
+  <widget class="QToolButton" name="toolButtonAOP">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>453</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>AOP</string>
+   </property>
+   <property name="autoRaise">
+    <bool>true</bool>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

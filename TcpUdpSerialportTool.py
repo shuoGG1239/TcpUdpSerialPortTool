@@ -12,6 +12,7 @@ from UdpSocket import UdpSocket
 from TcpServer import TcpServer
 from TcpSocketClient import TcpSocketClient
 from DialogHelp import DialogHelp
+from DialogAOP import DialogAOP
 
 
 class ConnectMode(Enum):
@@ -264,6 +265,11 @@ class TcpUdpSerialPortTool(QWidget):
             self.tcpServer.send(data)
         elif curMode == ConnectMode.SERIAL_PORT_MODE.value:
             self.serialPort.send(data)
+
+    @pyqtSlot()
+    def on_toolButtonAOP_clicked(self):
+        aopEditWindow = DialogAOP()
+        aopEditWindow.exec()
 
     @pyqtSlot()
     def on_pushButtonClearRec_clicked(self):
