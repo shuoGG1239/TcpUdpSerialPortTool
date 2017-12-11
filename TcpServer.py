@@ -46,6 +46,13 @@ class TcpServer(QTcpServer):
         self.sglOneClientDisconnected.connect(slotRec)
 
     def send(self, data, dstIp='', dstPort=0):
+        """
+        发送
+        :param data: str or bytearray
+        :param dstIp:
+        :param dstPort:
+        :return:
+        """
         if dstIp == '':
             self.curClient.send(data)
             return

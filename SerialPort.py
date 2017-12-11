@@ -33,6 +33,11 @@ class SerialPort(QObject):
         return isOpenSuccess
 
     def send(self, data):
+        """
+        发送字符串或字节流
+        :param data: str or bytearray
+        :return:
+        """
         if len(data) == 0 or data is None:
             return
         if isinstance(data, str):

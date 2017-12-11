@@ -23,7 +23,18 @@ class TcpSocketClient(QObject, ICommunicateTCPIP):
         return isOK
 
     def send(self, data):
-        self.tcpSocketClient.write(data)
+        """
+        发送
+        :param data: str or bytearray
+        :return: int
+        """
+        if len(data) == 0 or data is None:
+            return
+        if isinstance(data, str):
+            return self.tcpSocketClient.write(QByteArray(bytes(data)))
+        else:
+            return self.tcpSocketClient.write(QByteArray(data))
+
 
     def connectRec(self, slotRec):
         self.tcpSocketClient.readyRead.connect(slotRec)

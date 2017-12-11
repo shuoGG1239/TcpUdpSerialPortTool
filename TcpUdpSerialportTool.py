@@ -1,18 +1,30 @@
-from PyQt5.QtWidgets import QWidget, QMessageBox
-from PyQt5.QtGui import QKeySequence
+from enum import Enum
 from PyQt5.QtCore import Qt, pyqtSlot, pyqtSignal
+from PyQt5.QtGui import QKeySequence
 from PyQt5.QtNetwork import QHostInfo
-from ui_tcpUdpSerialportTool import Ui_TcpUdpComTool
+from PyQt5.QtWidgets import QWidget, QMessageBox
+import global_const
 from ConfigFile import ConfigFile
 from DataOperate import *
-from SerialPort import SerialPort, baudList
-from enum import Enum
+from DialogAOP import DialogAOP
+from DialogHelp import DialogHelp
 from ICommunicateTCPIP import ICommunicateTCPIP
-from UdpSocket import UdpSocket
+from SerialPort import SerialPort, baudList
 from TcpServer import TcpServer
 from TcpSocketClient import TcpSocketClient
-from DialogHelp import DialogHelp
-from DialogAOP import DialogAOP
+from UdpSocket import UdpSocket
+from ui_tcpUdpSerialportTool import Ui_TcpUdpComTool
+
+
+# @装饰器pre_send_decorate
+def pre_send_decorate(func):
+    def send_new(self, *args, **kwargs):
+        try:
+            exec(self.pre_send_code)
+        except Exception as e:
+            print(e)
+        func(self, *args, **kwargs)
+    return send_new
 
 
 class ConnectMode(Enum):
@@ -28,7 +40,9 @@ class TcpUdpSerialPortTool(QWidget):
 
     ClientReadData = pyqtSignal(int, str, int, bytearray)
     ClientDisConnect = pyqtSignal(int, str, int)
-
+    send_data = None
+    pre_send_code = str()
+    post_rec_code = str()
     def __init__(self):
         super(TcpUdpSerialPortTool, self).__init__()
         self.widgetui = Ui_TcpUdpComTool()
@@ -37,12 +51,19 @@ class TcpUdpSerialPortTool(QWidget):
         self.myconfig = ConfigFile("condat.json")
         self.comboboxInit()
         self.configDataInit()
+        self.__init_aop_files()
         self.widgetui.pushButtonSend.setEnabled(False)
         self.widgetui.pushButtonSend.setShortcut(QKeySequence("Ctrl+Return"))  # 快捷键, 也可以在QtDesign直接填
         self.setFocusPolicy(Qt.ClickFocus)  # 随便点击便聚焦
 
     def __del__(self):
         self.configDataSave()
+
+    def __init_aop_files(self):
+        with open(global_const.PRE_SEND_FILE_PATH) as f1:
+            self.pre_send_code = f1.read()
+        with open(global_const.POST_REC_FILE_PATH) as f2:
+            self.post_rec_code = f2.read()
 
     def configDataInit(self):
         # 发送状态读取
@@ -247,6 +268,13 @@ class TcpUdpSerialPortTool(QWidget):
 
     @pyqtSlot()
     def on_pushButtonSend_clicked(self):
+        """
+        self.udpSocket.send()
+        self.tcpSocketClient.send()
+        self.tcpServer.send()
+        self.serialPort.send()
+        :return:
+        """
         msg = self.widgetui.plainTextEditSend.toPlainText()
         aimIP = self.widgetui.lineEditIpAim.text()
         aimPort = int(self.widgetui.lineEditPortAim.text())
@@ -256,20 +284,29 @@ class TcpUdpSerialPortTool(QWidget):
         if hexORchar == HexOrChar.CHAR_STYLE:  # 字符串形式
             data = msg
         curMode = self.connectModeList.index(self.widgetui.comboBoxStyle.currentText())
+        self.send_data = data
+        self.method_name(aimIP, aimPort, curMode)
+
+    @pre_send_decorate
+    def method_name(self, aimIP, aimPort, curMode):
         if curMode == ConnectMode.UDP_MODE.value:
-            self.udpSocket.send(data, aimIP, aimPort)
+            self.udpSocket.send(self.send_data, aimIP, aimPort)
         elif curMode == ConnectMode.TCP_CLIENT_MODE.value:
-            self.tcpSocketClient.send(data)
+            self.tcpSocketClient.send(self.send_data)
         elif curMode == ConnectMode.TCP_SERVER_MODE.value:
             self.tcpServer.setCurClient(self.widgetui.comboBoxClientList.currentText())
-            self.tcpServer.send(data)
+            self.tcpServer.send(self.send_data)
         elif curMode == ConnectMode.SERIAL_PORT_MODE.value:
-            self.serialPort.send(data)
+            self.serialPort.send(self.send_data)
+
 
     @pyqtSlot()
     def on_toolButtonAOP_clicked(self):
         aopEditWindow = DialogAOP()
-        aopEditWindow.exec()
+        # aop_dialog若accept则表示aop文件修改了: accept:1 reject:0
+        exec_status = aopEditWindow.exec()
+        if exec_status == 1:
+            self.__init_aop_files()
 
     @pyqtSlot()
     def on_pushButtonClearRec_clicked(self):

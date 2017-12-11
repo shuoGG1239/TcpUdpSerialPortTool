@@ -17,6 +17,11 @@ class UdpSocket(QObject, ICommunicateTCPIP):
         return isOK
 
     def send(self, data):
+        """
+        udp-发送
+        :param data: str or bytearray
+        :return:
+        """
         self.send(data, self.getDstIp(), self.getDstPort())
 
     def send(self, data, dstIp, dstPort):
