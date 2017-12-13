@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QObject, pyqtSlot, pyqtSignal
+from PyQt5.QtCore import pyqtSlot, pyqtSignal
 from PyQt5.QtNetwork import QTcpServer, QHostAddress
 from TcpSocketClient import TcpSocketClient
 

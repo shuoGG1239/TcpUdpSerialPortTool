@@ -35,7 +35,6 @@ class TcpSocketClient(QObject, ICommunicateTCPIP):
         else:
             return self.tcpSocketClient.write(QByteArray(data))
 
-
     def connectRec(self, slotRec):
         self.tcpSocketClient.readyRead.connect(slotRec)
 

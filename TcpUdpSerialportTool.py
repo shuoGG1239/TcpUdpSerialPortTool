@@ -1,4 +1,3 @@
-from enum import Enum
 from PyQt5.QtCore import Qt, pyqtSlot, pyqtSignal
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtNetwork import QHostInfo
@@ -24,7 +23,20 @@ def pre_send_decorate(func):
         except Exception as e:
             print(e)
         func(self, *args, **kwargs)
+
     return send_new
+
+
+# @装饰器post_rec_decorate
+def post_rec_decorate(func):
+    def rec_new(self, *args, **kwargs):
+        try:
+            exec(self.post_rec_code)
+        except Exception as e:
+            print(e)
+        func(self, *args, **kwargs)
+
+    return rec_new
 
 
 class ConnectMode(Enum):
@@ -43,6 +55,7 @@ class TcpUdpSerialPortTool(QWidget):
     send_data = None
     pre_send_code = str()
     post_rec_code = str()
+
     def __init__(self):
         super(TcpUdpSerialPortTool, self).__init__()
         self.widgetui = Ui_TcpUdpComTool()
@@ -299,7 +312,6 @@ class TcpUdpSerialPortTool(QWidget):
         elif curMode == ConnectMode.SERIAL_PORT_MODE.value:
             self.serialPort.send(self.send_data)
 
-
     @pyqtSlot()
     def on_toolButtonAOP_clicked(self):
         aopEditWindow = DialogAOP()
@@ -349,6 +361,7 @@ class TcpUdpSerialPortTool(QWidget):
             self.widgetui.plainTextEditRec.clear()
             self.widgetui.plainTextEditSend.clear()
 
+    @post_rec_decorate
     def recByStyle(self, bytesData):
         if self.getCheckBoxStat() == HexOrChar.CHAR_STYLE:
             self.widgetui.plainTextEditRec.insertPlainText(bytesData.decode('ascii'))
