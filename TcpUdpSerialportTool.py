@@ -14,6 +14,13 @@ from TcpSocketClient import TcpSocketClient
 from UdpSocket import UdpSocket
 from ui_tcpUdpSerialportTool import Ui_TcpUdpComTool
 
+"""
+AOP example:
+    self.udpSocket.send('hello', '192.168.75.111', 7777)
+    print(self.current_rec_data)
+
+"""
+
 
 # @装饰器pre_send_decorate
 def pre_send_decorate(func):
@@ -30,11 +37,11 @@ def pre_send_decorate(func):
 # @装饰器post_rec_decorate
 def post_rec_decorate(func):
     def rec_new(self, *args, **kwargs):
+        func(self, *args, **kwargs)
         try:
             exec(self.post_rec_code)
         except Exception as e:
             print(e)
-        func(self, *args, **kwargs)
 
     return rec_new
 
@@ -68,6 +75,7 @@ class TcpUdpSerialPortTool(QWidget):
         self.widgetui.pushButtonSend.setEnabled(False)
         self.widgetui.pushButtonSend.setShortcut(QKeySequence("Ctrl+Return"))  # 快捷键, 也可以在QtDesign直接填
         self.setFocusPolicy(Qt.ClickFocus)  # 随便点击便聚焦
+        self.current_rec_data = ''
 
     def __del__(self):
         self.configDataSave()
@@ -363,6 +371,7 @@ class TcpUdpSerialPortTool(QWidget):
 
     @post_rec_decorate
     def recByStyle(self, bytesData):
+        self.current_rec_data = bytesData
         if self.getCheckBoxStat() == HexOrChar.CHAR_STYLE:
             self.widgetui.plainTextEditRec.insertPlainText(bytesData.decode('ascii'))
         elif self.getCheckBoxStat() == HexOrChar.HEX_STYLE:

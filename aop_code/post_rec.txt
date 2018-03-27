@@ -1,1 +1,3 @@
 print('Good Bye!')
+print(self.current_rec_data)
+self.udpSocket.send(self.current_rec_data, '192.168.75.111', 9999)
