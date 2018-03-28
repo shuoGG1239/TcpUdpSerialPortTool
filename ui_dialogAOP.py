@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui_dialogAOP.ui'
 #
-# Created: Tue Dec  5 20:01:23 2017
+# Created: Wed Mar 28 20:20:11 2018
 #      by: PyQt5 UI code generator 5.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,30 +12,34 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_DialogAOP(object):
     def setupUi(self, DialogAOP):
         DialogAOP.setObjectName("DialogAOP")
-        DialogAOP.resize(609, 365)
-        self.textEditSend = QtWidgets.QTextEdit(DialogAOP)
-        self.textEditSend.setGeometry(QtCore.QRect(10, 30, 291, 291))
-        self.textEditSend.setObjectName("textEditSend")
-        self.textEditRec = QtWidgets.QTextEdit(DialogAOP)
-        self.textEditRec.setGeometry(QtCore.QRect(307, 30, 291, 291))
-        self.textEditRec.setObjectName("textEditRec")
-        self.label = QtWidgets.QLabel(DialogAOP)
-        self.label.setGeometry(QtCore.QRect(12, 10, 54, 12))
-        self.label.setObjectName("label")
-        self.label_2 = QtWidgets.QLabel(DialogAOP)
-        self.label_2.setGeometry(QtCore.QRect(309, 10, 54, 12))
-        self.label_2.setObjectName("label_2")
+        DialogAOP.resize(739, 325)
         self.pushButtonSave = QtWidgets.QPushButton(DialogAOP)
-        self.pushButtonSave.setGeometry(QtCore.QRect(224, 330, 161, 23))
+        self.pushButtonSave.setGeometry(QtCore.QRect(270, 288, 161, 23))
         self.pushButtonSave.setObjectName("pushButtonSave")
+        self.tabWidget = QtWidgets.QTabWidget(DialogAOP)
+        self.tabWidget.setGeometry(QtCore.QRect(3, 2, 721, 281))
+        self.tabWidget.setObjectName("tabWidget")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setObjectName("tab")
+        self.textEditSend = QtWidgets.QTextEdit(self.tab)
+        self.textEditSend.setGeometry(QtCore.QRect(7, 8, 701, 231))
+        self.textEditSend.setObjectName("textEditSend")
+        self.tabWidget.addTab(self.tab, "")
+        self.tab_2 = QtWidgets.QWidget()
+        self.tab_2.setObjectName("tab_2")
+        self.textEditRec = QtWidgets.QTextEdit(self.tab_2)
+        self.textEditRec.setGeometry(QtCore.QRect(7, 8, 701, 231))
+        self.textEditRec.setObjectName("textEditRec")
+        self.tabWidget.addTab(self.tab_2, "")
 
         self.retranslateUi(DialogAOP)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(DialogAOP)
 
     def retranslateUi(self, DialogAOP):
         _translate = QtCore.QCoreApplication.translate
         DialogAOP.setWindowTitle(_translate("DialogAOP", "Dialog"))
-        self.label.setText(_translate("DialogAOP", "Send:"))
-        self.label_2.setText(_translate("DialogAOP", "Receive:"))
         self.pushButtonSave.setText(_translate("DialogAOP", "Save"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("DialogAOP", "PreSend"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("DialogAOP", "PostRecieve"))
 
