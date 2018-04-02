@@ -2,6 +2,8 @@ from PyQt5.QtCore import Qt, pyqtSlot, pyqtSignal
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtNetwork import QHostInfo
 from PyQt5.QtWidgets import QWidget, QMessageBox
+from qss_ui_theme.green_theme import green_decorator
+
 import global_const
 from ConfigFile import ConfigFile
 from DataOperate import *
@@ -53,6 +55,7 @@ class ConnectMode(Enum):
     SERIAL_PORT_MODE = 3
 
 
+@green_decorator
 class TcpUdpSerialPortTool(QWidget):
     WIN_WIDTH = 655
     WIN_HEIGHT = 486
@@ -64,7 +67,7 @@ class TcpUdpSerialPortTool(QWidget):
     post_rec_code = str()
 
     def __init__(self):
-        super(TcpUdpSerialPortTool, self).__init__()
+        QWidget.__init__(self)
         self.widgetui = Ui_TcpUdpComTool()
         self.widgetui.setupUi(self)
         self.setFixedSize(self.WIN_WIDTH, self.WIN_HEIGHT)
