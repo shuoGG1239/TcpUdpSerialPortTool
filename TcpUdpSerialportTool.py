@@ -379,3 +379,5 @@ class TcpUdpSerialPortTool(QWidget):
             self.widgetui.plainTextEditRec.insertPlainText(bytesData.decode('GBK'))
         elif self.getCheckBoxStat() == HexOrChar.HEX_STYLE:
             self.widgetui.plainTextEditRec.insertPlainText(DataOperate.charsToHexString(bytesData))
+        bar = self.widgetui.plainTextEditRec.verticalScrollBar()
+        bar.setSliderPosition(bar.maximum())
