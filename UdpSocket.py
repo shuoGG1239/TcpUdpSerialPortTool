@@ -36,7 +36,7 @@ class UdpSocket(QObject, ICommunicateTCPIP):
         dstAddress.setAddress(dstIp)
         if isinstance(data, str):
             self.udpSocket.writeDatagram(data, dstAddress, dstPort)
-        elif isinstance(data, bytearray):
+        elif isinstance(data, bytearray) or isinstance(data, bytes):
             self.udpSocket.writeDatagram(QByteArray(data), dstAddress, dstPort)
         else:
             print('unexpected input type!')

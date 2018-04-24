@@ -376,6 +376,6 @@ class TcpUdpSerialPortTool(QWidget):
     def recByStyle(self, bytesData):
         self.current_rec_data = bytesData
         if self.getCheckBoxStat() == HexOrChar.CHAR_STYLE:
-            self.widgetui.plainTextEditRec.insertPlainText(bytesData.decode('ascii'))
+            self.widgetui.plainTextEditRec.insertPlainText(bytesData.decode('GBK'))
         elif self.getCheckBoxStat() == HexOrChar.HEX_STYLE:
             self.widgetui.plainTextEditRec.insertPlainText(DataOperate.charsToHexString(bytesData))
