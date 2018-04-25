@@ -376,7 +376,11 @@ class TcpUdpSerialPortTool(QWidget):
     def recByStyle(self, bytesData):
         self.current_rec_data = bytesData
         if self.getCheckBoxStat() == HexOrChar.CHAR_STYLE:
-            self.widgetui.plainTextEditRec.insertPlainText(bytesData.decode('GBK'))
+            try:
+                self.widgetui.plainTextEditRec.insertPlainText(bytesData.decode('GBK'))                
+            except Exception as e:
+                print('接收报文转字符串编码错误', e)
+                return
         elif self.getCheckBoxStat() == HexOrChar.HEX_STYLE:
             self.widgetui.plainTextEditRec.insertPlainText(DataOperate.charsToHexString(bytesData))
         bar = self.widgetui.plainTextEditRec.verticalScrollBar()
