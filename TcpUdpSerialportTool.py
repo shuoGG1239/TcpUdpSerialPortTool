@@ -76,9 +76,11 @@ class TcpUdpSerialPortTool(QWidget):
         self.configDataInit()
         self.__init_aop_files()
         self.widgetui.pushButtonSend.setEnabled(False)
-        self.widgetui.pushButtonSend.setShortcut(QKeySequence("Ctrl+Return"))  # 快捷键, 也可以在QtDesign直接填
+        self.widgetui.pushButtonSend.setShortcut(
+            QKeySequence("Ctrl+Return"))  # 快捷键, 也可以在QtDesign直接填
         self.setFocusPolicy(Qt.ClickFocus)  # 随便点击便聚焦
         self.current_rec_data = ''
+        self.init_all_connections()
 
     def __del__(self):
         self.configDataSave()
@@ -99,22 +101,30 @@ class TcpUdpSerialPortTool(QWidget):
             self.widgetui.checkBoxHexRec.setChecked(False)
         else:
             self.widgetui.checkBoxHexRec.setChecked(True)
-        self.widgetui.comboBoxBaud.setCurrentText(str(self.myconfig.getValue("baudValue")))
+        self.widgetui.comboBoxBaud.setCurrentText(
+            str(self.myconfig.getValue("baudValue")))
         self.oldcomNum = str(self.myconfig.getValue("comNum"))
-        self.widgetui.lineEditIpAim.setText(str(self.myconfig.getValue("aimIp")))
-        self.widgetui.lineEditPortLocal.setText(str(self.myconfig.getValue("srcPort")))
-        self.widgetui.lineEditPortAim.setText(str(self.myconfig.getValue("dstPort")))
+        self.widgetui.lineEditIpAim.setText(
+            str(self.myconfig.getValue("aimIp")))
+        self.widgetui.lineEditPortLocal.setText(
+            str(self.myconfig.getValue("srcPort")))
+        self.widgetui.lineEditPortAim.setText(
+            str(self.myconfig.getValue("dstPort")))
 
     def configDataSave(self):
         self.myconfig.setValue("sendStatus", self.getRadioButtStat().value)
         self.myconfig.setValue("recStatus", self.getCheckBoxStat().value)
-        self.myconfig.setValue("baudValue", self.widgetui.comboBoxBaud.currentText())
-        self.myconfig.setValue("srcPort", self.widgetui.lineEditPortLocal.text())
+        self.myconfig.setValue(
+            "baudValue", self.widgetui.comboBoxBaud.currentText())
+        self.myconfig.setValue(
+            "srcPort", self.widgetui.lineEditPortLocal.text())
         self.myconfig.setValue("dstPort", self.widgetui.lineEditPortAim.text())
         self.myconfig.setValue("aimIp", self.widgetui.lineEditIpAim.text())
-        self.myconfig.setValue("hostIp", self.widgetui.comboBoxLocal.currentText())
+        self.myconfig.setValue(
+            "hostIp", self.widgetui.comboBoxLocal.currentText())
         if None != self.widgetui.comboComNum.currentText():
-            self.myconfig.setValue("comNum", self.widgetui.comboComNum.currentText())
+            self.myconfig.setValue(
+                "comNum", self.widgetui.comboComNum.currentText())
 
     def comboboxInit(self):
         # 工具选择框combox
@@ -146,9 +156,16 @@ class TcpUdpSerialPortTool(QWidget):
         self.widgetui.comboBoxLocal.setCurrentText((tempHostIp))
         self.myaddress = self.widgetui.comboBoxLocal.currentText()
 
+    def init_all_connections(self):
+        self.udpSocket = UdpSocket(self)
+        self.tcpSocketClient = TcpSocketClient(self)
+        self.serialPort = SerialPort()
+        self.tcpServer = TcpServer(self)
+
     def connectUDP(self):
         self.udpSocket = UdpSocket(self)
-        self.udpSocket.createConnection(self.myaddress, int(self.widgetui.lineEditPortLocal.text()))
+        self.udpSocket.createConnection(self.myaddress, int(
+            self.widgetui.lineEditPortLocal.text()))
         self.udpSocket.connectRec(self.dataReceivedUDP)
         self.widgetui.pushButtonSend.setEnabled(True)
         self.widgetui.labelStatus.setText('Udp创建OK')
@@ -169,7 +186,8 @@ class TcpUdpSerialPortTool(QWidget):
 
     def connectTCPserver(self):
         self.tcpServer = TcpServer(self)
-        self.tcpServer.createConnection(int(self.widgetui.lineEditPortLocal.text()))
+        self.tcpServer.createConnection(
+            int(self.widgetui.lineEditPortLocal.text()))
         # 有TCPclient连接上server时
         self.tcpServer.connectClientConnected(self.updateClientList)
         # 当server收到client的发来的数据时
@@ -188,13 +206,15 @@ class TcpUdpSerialPortTool(QWidget):
         isOpenSuccess = self.serialPort.openPort(self.widgetui.comboComNum.currentText(),
                                                  int(self.widgetui.comboBoxBaud.currentText()))
         if isOpenSuccess:
-            self.widgetui.labelStatus.setText(self.serialPort.getCurPortName() + " OK")
+            self.widgetui.labelStatus.setText(
+                self.serialPort.getCurPortName() + " OK")
             self.widgetui.pushButtonStart.setText("断开")
             self.widgetui.pushButtonSend.setEnabled(True)
             self.widgetui.comboComNum.setEnabled(False)
             self.widgetui.comboBoxBaud.setEnabled(False)
         else:
-            self.widgetui.labelStatus.setText(self.serialPort.getCurPortName() + " Error")
+            self.widgetui.labelStatus.setText(
+                self.serialPort.getCurPortName() + " Error")
 
     def getRadioButtStat(self):
         if self.widgetui.radioButton16.isChecked():
@@ -211,7 +231,8 @@ class TcpUdpSerialPortTool(QWidget):
 
     @pyqtSlot(str)
     def disconnectTCPlist(self, fullAddrStr):
-        removeIndex = self.widgetui.comboBoxClientList.findText(fullAddrStr)  # 找出文字对应的index
+        removeIndex = self.widgetui.comboBoxClientList.findText(
+            fullAddrStr)  # 找出文字对应的index
         self.widgetui.comboBoxClientList.removeItem(removeIndex)  # 根据index移除该项
         if self.widgetui.comboBoxClientList.count() == 0:  # client列表为空时, 不允许发送
             self.widgetui.pushButtonSend.setEnabled(False)
@@ -255,7 +276,8 @@ class TcpUdpSerialPortTool(QWidget):
             self.widgetui.comboBoxLocal.setEnabled(False)
             self.widgetui.lineEditPortLocal.setEnabled(False)
             self.widgetui.comboBoxStyle.setEnabled(False)
-            curMode = self.connectModeList.index(self.widgetui.comboBoxStyle.currentText())
+            curMode = self.connectModeList.index(
+                self.widgetui.comboBoxStyle.currentText())
             if curMode == ConnectMode.UDP_MODE.value:
                 self.connectUDP()
             elif curMode == ConnectMode.TCP_CLIENT_MODE.value:
@@ -266,7 +288,8 @@ class TcpUdpSerialPortTool(QWidget):
                 self.connectCOM()
         # -------------------断开------------------
         elif self.widgetui.pushButtonStart.text() == "断开":
-            curMode = self.connectModeList.index(self.widgetui.comboBoxStyle.currentText())
+            curMode = self.connectModeList.index(
+                self.widgetui.comboBoxStyle.currentText())
             if curMode == ConnectMode.UDP_MODE.value:
                 self.udpSocket.close()
             elif curMode == ConnectMode.TCP_CLIENT_MODE.value:
@@ -307,7 +330,8 @@ class TcpUdpSerialPortTool(QWidget):
             data = DataOperate.hexStringTochars(msg)
         if hexORchar == HexOrChar.CHAR_STYLE:  # 字符串形式
             data = msg
-        curMode = self.connectModeList.index(self.widgetui.comboBoxStyle.currentText())
+        curMode = self.connectModeList.index(
+            self.widgetui.comboBoxStyle.currentText())
         self.send_data = data
         self.method_name(aimIP, aimPort, curMode)
 
@@ -318,7 +342,8 @@ class TcpUdpSerialPortTool(QWidget):
         elif curMode == ConnectMode.TCP_CLIENT_MODE.value:
             self.tcpSocketClient.send(self.send_data)
         elif curMode == ConnectMode.TCP_SERVER_MODE.value:
-            self.tcpServer.setCurClient(self.widgetui.comboBoxClientList.currentText())
+            self.tcpServer.setCurClient(
+                self.widgetui.comboBoxClientList.currentText())
             self.tcpServer.send(self.send_data)
         elif curMode == ConnectMode.SERIAL_PORT_MODE.value:
             self.serialPort.send(self.send_data)
@@ -377,11 +402,13 @@ class TcpUdpSerialPortTool(QWidget):
         self.current_rec_data = bytesData
         if self.getCheckBoxStat() == HexOrChar.CHAR_STYLE:
             try:
-                self.widgetui.plainTextEditRec.insertPlainText(bytesData.decode('GBK'))                
+                self.widgetui.plainTextEditRec.insertPlainText(
+                    bytesData.decode('GBK'))
             except Exception as e:
                 print('接收报文转字符串编码错误', e)
                 return
         elif self.getCheckBoxStat() == HexOrChar.HEX_STYLE:
-            self.widgetui.plainTextEditRec.insertPlainText(DataOperate.charsToHexString(bytesData))
+            self.widgetui.plainTextEditRec.insertPlainText(
+                DataOperate.charsToHexString(bytesData))
         bar = self.widgetui.plainTextEditRec.verticalScrollBar()
         bar.setSliderPosition(bar.maximum())
