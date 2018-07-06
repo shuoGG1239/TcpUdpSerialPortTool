@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt, pyqtSlot, pyqtSignal
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtNetwork import QHostInfo
 from PyQt5.QtWidgets import QWidget, QMessageBox
-from qss_ui_theme.green_theme import green_decorator
+from QCandyUi.CandyWindow import colorful
 
 import global_const
 from ConfigFile import ConfigFile
@@ -55,7 +55,7 @@ class ConnectMode(Enum):
     SERIAL_PORT_MODE = 3
 
 
-@green_decorator
+@colorful('blueGreen')
 class TcpUdpSerialPortTool(QWidget):
     WIN_WIDTH = 655
     WIN_HEIGHT = 486
