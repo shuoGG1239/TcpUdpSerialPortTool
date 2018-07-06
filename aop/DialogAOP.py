@@ -1,8 +1,9 @@
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialog
-import global_const
-from ui_dialogAOP import Ui_DialogAOP
+
+from aop.ui_dialogAOP import Ui_DialogAOP
+from util import global_const
 
 
 class DialogAOP(QDialog):

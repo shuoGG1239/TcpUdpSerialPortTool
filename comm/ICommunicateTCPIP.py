@@ -1,4 +1,4 @@
-from PyQt5.QtNetwork import QHostInfo, QHostAddress, QAbstractSocket
+from PyQt5.QtNetwork import QHostInfo, QAbstractSocket
 
 
 class ICommunicateTCPIP:

@@ -1,9 +1,11 @@
 import json
 
+
 class ConfigFile:
     """
     实现setValue和getValue都是独立的操作,虽然每次操作都要对文件进行读写,会比较慢
     """
+
     def __init__(self, configFileUrl):
         self.configFile = json.load(open(configFileUrl))
         self.filename = configFileUrl
@@ -19,5 +21,3 @@ class ConfigFile:
 
     def refresh(self):
         self.configFile = json.load(open(self.filename))
-
-

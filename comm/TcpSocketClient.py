@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QByteArray
 from PyQt5.QtNetwork import QTcpSocket
-from ICommunicateTCPIP import ICommunicateTCPIP
+
+from comm.ICommunicateTCPIP import ICommunicateTCPIP
 
 
 class TcpSocketClient(QObject, ICommunicateTCPIP):
@@ -31,7 +32,7 @@ class TcpSocketClient(QObject, ICommunicateTCPIP):
         if len(data) == 0 or data is None:
             return
         if isinstance(data, str):
-            return self.tcpSocketClient.write(QByteArray(bytes(data)))
+            return self.tcpSocketClient.write(QByteArray(bytes(data, 'utf8')))
         else:
             return self.tcpSocketClient.write(QByteArray(data))
 

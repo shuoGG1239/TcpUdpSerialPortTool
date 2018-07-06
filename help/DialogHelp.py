@@ -1,9 +1,9 @@
-import json
-from PyQt5.QtWidgets import QWidget, QDialog
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import pyqtSlot
-from ui_dialoghelp import Ui_DialogHelpShortcut
-import global_const
+from PyQt5.QtWidgets import QDialog
+
+from help.ui_dialoghelp import Ui_DialogHelpShortcut
+from util import global_const
+
 
 class DialogHelp(QDialog):
     def __init__(self):

@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QObject, QByteArray
 from PyQt5.QtNetwork import QUdpSocket, QHostAddress
-from ICommunicateTCPIP import ICommunicateTCPIP
+
+from comm.ICommunicateTCPIP import ICommunicateTCPIP
 
 
 class UdpSocket(QObject, ICommunicateTCPIP):

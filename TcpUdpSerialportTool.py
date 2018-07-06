@@ -4,17 +4,18 @@ from PyQt5.QtNetwork import QHostInfo
 from PyQt5.QtWidgets import QWidget, QMessageBox
 from QCandyUi.CandyWindow import colorful
 
-import global_const
-from ConfigFile import ConfigFile
-from DataOperate import *
-from DialogAOP import DialogAOP
-from DialogHelp import DialogHelp
-from ICommunicateTCPIP import ICommunicateTCPIP
-from SerialPort import SerialPort, baudList
-from TcpServer import TcpServer
-from TcpSocketClient import TcpSocketClient
-from UdpSocket import UdpSocket
+from aop.DialogAOP import DialogAOP
+from comm.ICommunicateTCPIP import ICommunicateTCPIP
+from comm.SerialPort import SerialPort, baudList
+from comm.TcpServer import TcpServer
+from comm.TcpSocketClient import TcpSocketClient
+from comm.UdpSocket import UdpSocket
+from help.DialogHelp import DialogHelp
 from ui_tcpUdpSerialportTool import Ui_TcpUdpComTool
+from util import global_const
+from util.ConfigFile import ConfigFile
+from util.DataOperate import *
+from util.global_const import CONFIG_FILE_PATH
 
 """
 AOP example:
@@ -71,7 +72,7 @@ class TcpUdpSerialPortTool(QWidget):
         self.widgetui = Ui_TcpUdpComTool()
         self.widgetui.setupUi(self)
         self.setFixedSize(self.WIN_WIDTH, self.WIN_HEIGHT)
-        self.myconfig = ConfigFile("condat.json")
+        self.myconfig = ConfigFile(CONFIG_FILE_PATH)
         self.comboboxInit()
         self.configDataInit()
         self.__init_aop_files()
@@ -82,7 +83,7 @@ class TcpUdpSerialPortTool(QWidget):
         self.current_rec_data = ''
         self.init_all_connections()
 
-    def __del__(self):
+    def closeEvent(self, e):
         self.configDataSave()
 
     def __init_aop_files(self):
@@ -114,17 +115,14 @@ class TcpUdpSerialPortTool(QWidget):
     def configDataSave(self):
         self.myconfig.setValue("sendStatus", self.getRadioButtStat().value)
         self.myconfig.setValue("recStatus", self.getCheckBoxStat().value)
-        self.myconfig.setValue(
-            "baudValue", self.widgetui.comboBoxBaud.currentText())
+        self.myconfig.setValue("baudValue", self.widgetui.comboBoxBaud.currentText())
         self.myconfig.setValue(
             "srcPort", self.widgetui.lineEditPortLocal.text())
         self.myconfig.setValue("dstPort", self.widgetui.lineEditPortAim.text())
         self.myconfig.setValue("aimIp", self.widgetui.lineEditIpAim.text())
-        self.myconfig.setValue(
-            "hostIp", self.widgetui.comboBoxLocal.currentText())
+        self.myconfig.setValue("hostIp", self.widgetui.comboBoxLocal.currentText())
         if None != self.widgetui.comboComNum.currentText():
-            self.myconfig.setValue(
-                "comNum", self.widgetui.comboComNum.currentText())
+            self.myconfig.setValue("comNum", self.widgetui.comboComNum.currentText())
 
     def comboboxInit(self):
         # 工具选择框combox
