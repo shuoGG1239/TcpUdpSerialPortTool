@@ -5,6 +5,11 @@ Tcp+Udp+串口的调试工具, 可以随意定制, 目的是在不改代码重�
 * 原版本为Qt5-C++版本,在cpp_ver分支中, 完成了作为Tcp+Udp+串口的通信基本功能, 可以作为一个稳定的普通工具来使用
 * 现主分支为PyQt5重写版, 新加了AOP功能, 完善中
 
+## 依赖
+* python3
+* pyQt5
+* QCandyUi
+
 ## 基础功能
 * Udp + TcpClient + TcpServer + SerialPort
 ![tool](https://i.loli.net/2018/07/06/5b3f66e24719f.png)
