@@ -71,7 +71,6 @@ class TcpUdpSerialPortTool(QWidget):
         QWidget.__init__(self)
         self.widgetui = Ui_TcpUdpComTool()
         self.widgetui.setupUi(self)
-        self.setFixedSize(self.WIN_WIDTH, self.WIN_HEIGHT)
         self.myconfig = ConfigFile(CONFIG_FILE_PATH)
         self.comboboxInit()
         self.configDataInit()
