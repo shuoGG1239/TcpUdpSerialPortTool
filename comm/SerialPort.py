@@ -41,7 +41,7 @@ class SerialPort(QObject):
         if len(data) == 0 or data is None:
             return
         if isinstance(data, str):
-            return self.serialPort.write(QByteArray(bytes(data)))
+            return self.serialPort.write(QByteArray(bytes(data,'utf8')))
         else:
             return self.serialPort.write(QByteArray(data))
 
