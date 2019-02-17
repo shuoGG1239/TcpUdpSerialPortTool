@@ -144,13 +144,15 @@ class TcpUdpSerialPortTool(QWidget):
         # 本地IP combobox
         self.myhostInfo = QHostInfo.fromName(QHostInfo.localHostName())
         hostIpList = ICommunicateTCPIP.getLocalIpList()
+        if '127.0.0.1' not in hostIpList:
+            hostIpList.append('127.0.0.1')
         oldHostIp = str(self.myconfig.getValue("hostIp"))
         tempHostIp = str()
         for ip in hostIpList:
             self.widgetui.comboBoxLocal.addItem(ip)
             if oldHostIp == ip:
                 tempHostIp = ip
-        self.widgetui.comboBoxLocal.setCurrentText((tempHostIp))
+        self.widgetui.comboBoxLocal.setCurrentText(tempHostIp)
         self.myaddress = self.widgetui.comboBoxLocal.currentText()
 
     def init_all_connections(self):
