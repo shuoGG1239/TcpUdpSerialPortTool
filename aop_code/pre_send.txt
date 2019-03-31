@@ -1,2 +1,2 @@
-self.udpSocket.send('hello', '192.168.75.111', 7777)
+# self.udpSocket.send('hello', '192.168.75.111', 7777)
 print(self.current_rec_data)

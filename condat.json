@@ -1,1 +1,1 @@
-{"dstPort": "6666", "aimIp": "192.168.75.111", "comNum": "", "srcPort": "9000", "hostIp": "127.0.0.1", "baudValue": "9600", "recStatus": 1, "sendStatus": 1}
+{"recStatus": 1, "comNum": "COM1", "sendStatus": 1, "hostIp": "127.0.0.1", "srcPort": "9000", "baudValue": "9600", "aimIp": "192.168.75.111", "dstPort": "6666"}
